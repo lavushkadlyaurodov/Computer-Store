@@ -1,0 +1,45 @@
+{% extends 'store/base.html' %}
+{% block content %}
+<h2>Журнал документов</h2>
+<form method="get" class="form-inline mb-3">
+  <select name="type" class="form-control mr-2">
+    <option value="">Все типы</option>
+    <option value="invoice">Счет</option>
+    <option value="cash">Наличный</option>
+    <option value="cashless">Безналичный</option>
+    <option value="return">Возврат</option>
+  </select>
+  <input type="date" name="start_date" class="form-control mr-2">
+  <input type="date" name="end_date" class="form-control mr-2">
+  <input type="text" name="customer" placeholder="Покупатель" class="form-control mr-2">
+  <button type="submit" class="btn btn-primary">Фильтровать</button>
+</form>
+<table class="table table-bordered">
+  <thead>
+    <tr>
+      <th>Тип</th>
+      <th>Номер</th>
+      <th>Дата</th>
+      <th>Покупатель / Отдел</th>
+      <th>Сумма</th>
+      <th>Действия</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for document in documents %}
+    <tr>
+      <td>{{ document.doc_type }}</td>
+      <td>{{ document.doc_number }}</td>
+      <td>{{ document.date }}</td>
+      <td>{{ document.customer_name }}</td>
+      <td>{{ document.total }}</td>
+      <td>
+        <a href="{% url 'detail' document.id %}" class="btn btn-info btn-sm">Просмотр</a>
+        <a href="{% url 'edit' document.id %}" class="btn btn-warning btn-sm">Редактировать</a>
+        <a href="{% url 'delete' document.id %}" class="btn btn-danger btn-sm">Удалить</a>
+      </td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endblock %}

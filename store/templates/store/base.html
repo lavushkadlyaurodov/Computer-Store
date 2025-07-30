@@ -1,0 +1,29 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8" />
+    <title>{% block title %}Компьютерный магазин{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'store/css/style.css' %}">
+</head>
+<body>
+    <header style="background-color:#222; color:#fff; padding:15px;">
+        <h1>Компьютерный магазин</h1>
+        <nav>
+            <a href="/" style="color:#fff; margin-right:15px;">Главная</a>
+            <a href="{% url 'document_list' %}" style="color:#fff; margin-right:15px;">Документы</a>
+            <a href="{% url 'sales_report' %}" style="color:#fff;">Отчёты</a>
+        </nav>
+    </header>
+
+    <main style="padding:20px;">
+        {% block content %}
+        <p>Добро пожаловать в компьютерный магазин!</p>
+        {% endblock %}
+    </main>
+
+    <footer style="background:#222; color:#aaa; padding:10px; text-align:center; font-size:0.9em;">
+        <p>© 2025 Компьютерный магазин. Все права защищены.</p>
+    </footer>
+</body>
+</html>

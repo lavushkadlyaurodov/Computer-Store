@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>Счет на оплату</h2>
+<form method="post">
+  {% csrf_token %}
+  {{ form.as_p }}
+  <h3>Товары</h3>
+  {{ formset.management_form }}
+  {% for form in formset %}
+    <div class="form-row">
+      {{ form.as_p }}
+    </div>
+  {% endfor %}
+  <button type="submit" class="btn btn-success">Сохранить счет</button>
+</form>
+{% endblock %}

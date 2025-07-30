@@ -1,0 +1,60 @@
+{% extends 'store/base.html' %}
+{% block content %}
+<h2>Панель управления</h2>
+<div class="row">
+  <div class="col-md-3">
+    <div class="card text-white bg-primary mb-3">
+      <div class="card-body">
+        <h5 class="card-title">Продажи сегодня</h5>
+        <p class="card-text">{{ stats.sales_today }}</p>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-3">
+    <div class="card text-white bg-success mb-3">
+      <div class="card-body">
+        <h5 class="card-title">Продажи за неделю</h5>
+        <p class="card-text">{{ stats.sales_week }}</p>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-3">
+    <div class="card text-white bg-info mb-3">
+      <div class="card-body">
+        <h5 class="card-title">Продажи за месяц</h5>
+        <p class="card-text">{{ stats.sales_month }}</p>
+      </div>
+    </div>
+  </div>
+    <div class="col-md-3">
+    <div class="card text-white bg-danger mb-3">
+      <div class="card-body">
+        <h5 class="card-title">Продажи за всё время</h5>
+        <p class="card-text">{{ stats.total_sales_amount }}</p>
+      </div>
+    </div>
+  </div>
+</div>
+  <div class="col-md-3">
+    <div class="card text-white bg-danger mb-3">
+      <div class="card-body">
+        <h5 class="card-title">Сумма возвратов</h5>
+        <p class="card-text">{{ stats.total_returns_amount }}</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<form method="get" action="{% url 'create_sale_document' doc_type='cash' %}">
+    <label for="doc_type">Тип документа:</label>
+    <select name="doc_type" id="doc_type" class="form-select" onchange="this.form.action='{% url 'create_sale_document' doc_type='__doc_type__' %}'.replace('__doc_type__', this.value)">
+        <option value="cash">Товарный чек</option>
+        <option value="cashless">Безнал</option>
+        <option value="return">Возврат</option>
+    </select>
+    <button type="submit" class="btn btn-primary mt-2">Создать документ</button>
+</form>
+
+<a href="{% url 'sales_report' %}" class="btn btn-secondary">Сформировать отчет</a>
+<a href="{% url 'document_list' %}" class="btn btn-info">Журнал документов</a>
+{% endblock %}

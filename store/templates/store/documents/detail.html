@@ -1,0 +1,55 @@
+{% extends 'store/base.html' %}
+
+{% block content %}
+<h2>Документ продажи №{{ document.number }}</h2>
+
+<div class="card mb-4">
+  <div class="card-body">
+    <div class="row">
+      <div class="col-md-6">
+        <p><strong>Тип документа:</strong> {{ document.get_type_display }}</p>
+        <p><strong>Дата:</strong> {{ document.date }}</p>
+        <p><strong>Покупатель:</strong> {{ document.customer.name }}</p>
+      </div>
+      <div class="col-md-6">
+        <p><strong>Сумма:</strong> {{ document.total }}</p>
+        <p><strong>Счёт:</strong>
+          {% if document.invoice %}
+            №{{ document.invoice.number }} ({{ document.invoice.total }})
+          {% else %}
+            Не указан
+          {% endif %}
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<h4>Товары:</h4>
+<table class="table table-bordered">
+  <thead>
+    <tr>
+      <th>Товар</th>
+      <th>Количество</th>
+      <th>Цена</th>
+      <th>Сумма</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for item in items %}
+    <tr>
+      <td>{{ item.product.name }}</td>
+      <td>{{ item.quantity }}</td>
+      <td>{{ item.price }}</td>
+      <td>{{ item.total }}</td>
+    </tr>
+    {% endfor %}
+    <tr>
+      <td colspan="3" class="text-right"><strong>Итого:</strong></td>
+      <td><strong>{{ document.total }}</strong></td>
+    </tr>
+  </tbody>
+</table>
+
+<a href="{% url 'document_list' %}" class="btn btn-secondary">Назад в журнал</a>
+{% endblock %}

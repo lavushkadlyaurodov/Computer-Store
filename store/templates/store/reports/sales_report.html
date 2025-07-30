@@ -1,0 +1,56 @@
+{% extends 'store/base.html' %}
+
+{% block content %}
+<h2>Отчет по продажам</h2>
+
+<form method="get" class="form-inline mb-3">
+  {{ form.report_type.label_tag }} {{ form.report_type }}
+  {{ form.start_date.label_tag }} {{ form.start_date }}
+  {{ form.end_date.label_tag }} {{ form.end_date }}
+  <button type="submit" class="btn btn-primary ml-2">Показать</button>
+</form>
+
+<table class="table table-bordered">
+  <thead>
+    <tr>
+      <th>Вид продажи</th>
+      <th>Дата продажи</th>
+      <th>Сумма</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% if report_data %}
+      {% for sale in report_data %}
+        <tr>
+          <td><strong>{{ sale.type_name }}</strong><br><br><strong>Всего</strong></td>
+          <td></td>
+          <td><strong>{{ sale.total }}</strong></td>
+        </tr>
+
+        {% for date, day_data in sale.dates.items %}
+          <tr>
+            <td><em>За день</em></td>
+            <td>{{ date|date:"d.m.Y" }}</td>
+            <td><em>{{ day_data.total }}</em></td>
+          </tr>
+
+          {% for doc in day_data.documents %}
+            <tr>
+              <td>Продажа № {{ doc.number }}</td>
+              <td>{{ doc.date|date:"d.m.Y" }}</td>
+              <td>{{ doc.total }}</td>
+            </tr>
+          {% endfor %}
+        {% endfor %}
+      {% endfor %}
+      <tr>
+        <td><strong>ИТОГО</strong></td>
+        <td></td>
+        <td><strong>{{ overall_total }}</strong></td>
+      </tr>
+    {% else %}
+      <tr><td colspan="3">Данные отсутствуют</td></tr>
+    {% endif %}
+  </tbody>
+</table>
+{% endblock %}

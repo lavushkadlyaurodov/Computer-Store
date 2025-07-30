@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>Создание документа</h2>
+<form method="get" action="{% url 'documents:create' %}">
+  <div class="form-group">
+    <label for="doc_type">Выберите тип документа:</label>
+    <select name="doc_type" id="doc_type" class="form-control">
+      <option value="invoice">Счет на оплату</option>
+      <option value="cash">Продажа за наличный расчет</option>
+      <option value="cashless">Продажа за безналичный расчет</option>
+      <option value="return">Возврат товара</option>
+    </select>
+  </div>
+  <button type="submit" class="btn btn-primary">Продолжить</button>
+</form>
+{% endblock %}
