@@ -50,7 +50,7 @@
 
 ```bash
 # Клонируем репозиторий
-git clone [https://github.com/lavushkadlyaurodov/Computer-Store]
+git clone https://github.com/lavushkadlyaurodov/Computer-Store
 cd Computer-Store
 
 # Создаём виртуальное окружение
