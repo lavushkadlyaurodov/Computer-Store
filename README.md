@@ -50,8 +50,8 @@
 
 ```bash
 # Клонируем репозиторий
-git clone https://github.com/your_username/your_repo.git
-cd your_repo
+git clone [https://github.com/your_username/your_repo.git](https://github.com/lavushkadlyaurodov/Computer-Store)
+cd Computer-Store
 
 # Создаём виртуальное окружение
 python -m venv venv
